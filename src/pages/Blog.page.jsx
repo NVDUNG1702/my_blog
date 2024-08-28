@@ -3,8 +3,11 @@ import { db } from "../firebase.config";
 import { collection, getDocs } from "firebase/firestore";
 import "../styles/Block.css";
 import ItemBlog_component from "../components/blog/ItemBlog_component";
+
 const Blog = () => {
   const [posts, setPosts] = useState([]);
+
+
 
   useEffect(() => {
     const fetchPosts = async () => {

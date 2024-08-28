@@ -1,4 +1,5 @@
 import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../firebase.config";
 
 export const blogAPI = {
     delete: async (collectionName, id) => {

@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function AddBlog_component() {
   const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
   const [sections, setSections] = useState([
     { heading: "", content: "", images: [] },
   ]);
@@ -61,6 +62,7 @@ export default function AddBlog_component() {
     try {
       await addDoc(collection(db, "posts"), {
         title,
+        author,
         sections: updatedSections,
         createdAt: new Date(),
       });
@@ -117,7 +119,14 @@ export default function AddBlog_component() {
         placeholder="Tiêu đề"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="form-control input"
+        className="form-control input w-50 m-auto"
+      />
+      <input
+        type="text"
+        placeholder="Tác giả"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+        className="form-control input w-50 m-auto mt-3"
       />
       {sections.map((section, index) => (
         <div key={index} className="form_content">
