@@ -1,10 +1,10 @@
 // src/HomePage.js
 import React from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Header_components from "../components/home/header/Header_components";
 
 const HomePage = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <div style={st.container}>

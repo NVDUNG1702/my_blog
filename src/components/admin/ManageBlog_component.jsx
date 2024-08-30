@@ -37,7 +37,7 @@ export const ManageBlog_component = () => {
   };
   return (
     <div className="manageContainer">
-      {posts == "" || posts.length == 0 ? (
+      {posts === "" || posts.length === 0 ? (
         <></>
       ) : (
         posts.map((post, i) => {

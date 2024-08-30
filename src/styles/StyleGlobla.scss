@@ -76,7 +76,7 @@
         }
 
         &:hover::before {
-            transform: scaleX(0.7); // Khi hover, độ dài gạch chân sẽ giãn ra 100%
+            transform: scaleX(0.6); // Khi hover, độ dài gạch chân sẽ giãn ra 100%
         }
     }
 }

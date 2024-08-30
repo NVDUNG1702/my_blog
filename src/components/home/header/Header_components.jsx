@@ -19,7 +19,7 @@ const Header_components = () => {
 
   const controlHeader = () => {
     // Lấy vị trí hiện tại của trục Y
-    if (window.scrollY == 0) {
+    if (window.scrollY === 0) {
       setShowHeader(true);
       return;
     }

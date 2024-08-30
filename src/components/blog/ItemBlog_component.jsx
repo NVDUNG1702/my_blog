@@ -23,7 +23,7 @@ export default memo(function ItemBlog_component({ item }) {
           <div key={index}>
             <h4>{section.heading}</h4>
             <div dangerouslySetInnerHTML={{ __html: section.content }}></div>
-            {section.images != "" && (
+            {section.images !=="" && (
               <div className="imageBlock">
                 <img
                   key={index}
