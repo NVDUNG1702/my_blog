@@ -1,19 +1,14 @@
 // src/HomePage.js
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Header_components from "../components/home/header/Header_components";
 
 const HomePage = () => {
   const navigate = useNavigate();
 
   return (
     <div style={st.container}>
-      <h1>Welcome to Blog</h1>
-      <button onClick={() => navigate("/page")} style={st.button}>
-        Go to Blog
-      </button>
-      <button onClick={() => navigate("/admin")} style={st.button}>
-        Go to Admin
-      </button>
+      <Header_components />
     </div>
   );
 };
@@ -23,8 +18,8 @@ const st = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
+    // justifyContent: "center",
+    height: "200vh",
     backgroundColor: "#f0f0f0",
   },
   button: {
@@ -36,3 +31,13 @@ const st = {
 };
 
 export default HomePage;
+
+{
+  /* <h1>Welcome to Blog</h1>
+      <button onClick={() => navigate("/page")} style={st.button}>
+        Go to Blog
+      </button>
+      <button onClick={() => navigate("/admin")} style={st.button}>
+        Go to Admin
+      </button> */
+}

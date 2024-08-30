@@ -1,0 +1,87 @@
+.dropdown {
+    .dropdown-toggle::after {
+        color: black;
+    }
+}
+
+.j_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.j_around {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.j_between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.no_click {
+    outline: none;
+    /* Tắt đường viền khi nhấp */
+    box-shadow: none;
+    /* Tắt bóng đổ khi nhấp */
+    transition: none;
+    /* Tắt hiệu ứng chuyển tiếp */
+    background-color: initial;
+    /* Giữ nguyên màu nền ban đầu */
+
+    &:active {
+        outline: none;
+        /* Tắt outline khi nhấp */
+        box-shadow: none;
+        /* Tắt bóng đổ khi nhấp */
+        background-color: initial;
+        /* Giữ nguyên màu nền ban đầu */
+    }
+
+    &:focus {
+        outline: none;
+        /* Tắt outline khi focus */
+        box-shadow: none;
+        /* Tắt bóng đổ khi focus */
+    }
+}
+
+.flex_column{
+    flex-direction: column;
+}
+
+
+.nav-item{
+    .nav-link {
+        position: relative; // Để định vị phần tử giả tuyệt đối so với phần tử cha
+        display: inline-block; // Để đảm bảo phần tử giả không tràn ra ngoài phần tử cha
+        text-decoration: none; // Tắt gạch chân mặc định nếu có
+        color: #000; // Màu chữ ban đầu
+
+        &::before {
+            content: ''; // Phần tử giả không chứa nội dung
+            position: absolute; // Định vị tuyệt đối so với phần tử cha
+            left: 0;
+            bottom: -1px; // Khoảng cách từ gạch chân đến text
+            width: 100%; // Chiều rộng của gạch chân
+            height: 4px; // Độ dày của gạch chân
+            background-color: #000; // Màu của gạch chân
+            transform: scaleX(0); // Bắt đầu với độ dài gạch chân bằng 0
+            transition: transform 0.4s ease; // Hiệu ứng chuyển đổi khi hover
+            border-radius: 10px;
+        }
+
+        &:hover::before {
+            transform: scaleX(0.7); // Khi hover, độ dài gạch chân sẽ giãn ra 100%
+        }
+    }
+}
+
+.fullBox{
+    width: 100%;
+    height: 100vh;
+}

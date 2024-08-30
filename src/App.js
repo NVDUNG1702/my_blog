@@ -1,13 +1,16 @@
 import './App.css';
+import StyleGlobal from './components/StyleGlobal';
 import AppRouter from './routes/Router';
 
 
 function App() {
   return (
 
-    <div className='App'>
-      <AppRouter />
-    </div>
+    <StyleGlobal>
+      <div className='App'>
+        <AppRouter />
+      </div>
+    </StyleGlobal>
   );
 }
 

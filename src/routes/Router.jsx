@@ -6,6 +6,7 @@ import Blog from "../pages/Blog.page";
 import Admin from "../pages/Admin.page";
 import AddBlog_component from "../components/admin/AddBlog_component";
 import { ManageBlog_component } from "../components/admin/ManageBlog_component";
+import LoginPage from "../pages/Login.page";
 
 function AppRouter() {
   return (
@@ -13,6 +14,7 @@ function AppRouter() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/page" element={<Blog />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/admin" element={<Admin />}>
           <Route path="addBlog" element={<AddBlog_component />} />
           <Route path="manageBlog" element={<ManageBlog_component />} />
