@@ -1,0 +1,25 @@
+{
+    "uid": "37Fh0Ci9h8WClTuS90ic5ecIEiJ3",
+    "email": "dungkuro1702@gmail.com",
+    "emailVerified": false,
+    "isAnonymous": false,
+    "providerData": [
+        {
+            "providerId": "password",
+            "uid": "dungkuro1702@gmail.com",
+            "displayName": null,
+            "email": "dungkuro1702@gmail.com",
+            "phoneNumber": null,
+            "photoURL": null
+        }
+    ],
+    "stsTokenManager": {
+        "refreshToken": "AMf-vBxJgeYAbqLYk77vmuCl3GJ5ggwn938e7n2mE--xVA9V4koPr6gzULQmGubrjdC0d4kwpSNV4qDyCWD4R8-QwIkgX8wdq7uiNnTus7atltcbbaNLHq6vXieBIrAY_tQqvLI8hoZe73EeVO4f-mB_74hc2y-_tBiZEyFbqKs16vdcpMDWVdUYl3VfLRzfGxd-k3WzbC1AOpYpXsFQlwkPakDC1OjXyA",
+        "accessToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjExYzhiMmRmNGM1NTlkMjhjOWRlNWQ0MTAxNDFiMzBkOWUyYmNlM2IiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbXlibG9nLWYzMTAwIiwiYXVkIjoibXlibG9nLWYzMTAwIiwiYXV0aF90aW1lIjoxNzI1MDI5MzIyLCJ1c2VyX2lkIjoiMzdGaDBDaTloOFdDbFR1UzkwaWM1ZWNJRWlKMyIsInN1YiI6IjM3RmgwQ2k5aDhXQ2xUdVM5MGljNWVjSUVpSjMiLCJpYXQiOjE3MjUwMjkzMjIsImV4cCI6MTcyNTAzMjkyMiwiZW1haWwiOiJkdW5na3VybzE3MDJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImR1bmdrdXJvMTcwMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.x2qn74JIhCUrBXKbb0JhS0AClNC5uCyYCjCfN0R6HKAOGfcW2BZVnGLJ8ymHLFSWKDEHCbaLch3XTAyAce2kBmSTUTkZWhFTheLifmriBIxOoLxdPKUF5z8VTTxf0mu9xxW447sB8Fu1fhdfzGfFZPBMgp07JW5-Y_XTC_4_Q_QmcT_5vhCeHDVmtdxglqzwo8aDelDdd4Gy7jipL-MPfIUNtM7Cm83JPf81oQ5flHNPU15Rf7JVF5TR-wPO_VwuhhQgSXZa6IxdCmTWEhpoYDF-hfwqTjKTMOIjisILAmZf7130gV3FSqnbgVPtl0lN6295yxXC80Bq3Q4or_MvTw",
+        "expirationTime": 1725032922388
+    },
+    "createdAt": "1725024504122",
+    "lastLoginAt": "1725029322296",
+    "apiKey": "AIzaSyBbL1g-VaKX8I3weK9FfNawLhNoE-l-yy0",
+    "appName": "[DEFAULT]"
+}

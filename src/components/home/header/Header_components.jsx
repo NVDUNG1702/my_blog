@@ -12,7 +12,9 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { useMediaQuery } from "react-responsive";
+import { useNavigate } from "react-router-dom";
 const Header_components = () => {
+  const nav = useNavigate();
   const [showHeader, setShowHeader] = useState(true); // Trạng thái để kiểm soát hiển thị header
   const [lastScrollY, setLastScrollY] = useState(0); // Trạng thái để lưu vị trí cuộn trước đó
   // console.log(typeof logo);
@@ -40,9 +42,9 @@ const Header_components = () => {
       window.removeEventListener("scroll", controlHeader); // Gỡ bỏ sự kiện khi component bị hủy
     };
   }, [lastScrollY]);
-  useEffect(()=>{
-    setShowNav(false)
-  }, [showHeader])
+  useEffect(() => {
+    setShowNav(false);
+  }, [showHeader]);
 
   // responsive
   const showRight = useMediaQuery({ minWidth: 1024 });
@@ -53,6 +55,14 @@ const Header_components = () => {
   const responsiveNav = useMediaQuery({ minWidth: 568 });
 
   const [showNav, setShowNav] = useState(false);
+
+  const handleLogin = () => {
+    nav("/login");
+  };
+
+  // console.log(user);
+  // console.log(localStorage.getItem("accessToken"));
+  // console.log(localStorage.getItem("refreshToken"));
   return (
     <>
       <div
@@ -110,10 +120,9 @@ const Header_components = () => {
                 <button className="btn">
                   <FontAwesomeIcon icon={faSearch} size="lg" />
                 </button>
-                <Button style={{ margin: "0 10px" }} href="/login">
+                <Button style={{ margin: "0 10px" }} onClick={handleLogin}>
                   Login
                 </Button>
-                
               </div>
             ) : (
               <div onClick={handleShowMenuRight} className="j_center">
@@ -179,9 +188,9 @@ const Header_components = () => {
               <button className="btn">
                 <FontAwesomeIcon icon={faSearch} size="lg" />
               </button>
-              <Button style={{ margin: "0 10px" }} href="/login">
-                  Login
-                </Button>
+              <Button style={{ margin: "0 10px" }} onClick={handleLogin}>
+                Login
+              </Button>
             </div>
           </Nav>
         </>

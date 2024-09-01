@@ -1,10 +1,12 @@
 // src/HomePage.js
-import React from "react";
+import React, { useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 import Header_components from "../components/home/header/Header_components";
+import { userStore } from "../zustand/userStore";
 
 const HomePage = () => {
   // const navigate = useNavigate();
+  const user = userStore((state) => state.user);
 
   return (
     <div style={st.container}>
