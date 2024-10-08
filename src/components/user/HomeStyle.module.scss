@@ -1,0 +1,16 @@
+.container{
+    width: 50%;
+    margin: auto;
+}
+
+.buttonShow{
+    margin-top: 20px;
+    width: 100%;
+    // background-color: rgb(232, 232, 232);
+    box-shadow: 2px 2px 4px 1px #c2c2c2;
+
+    &:active{
+        box-shadow: inset 2px 2px 4px 1px #c2c2c2;
+
+    }
+}

@@ -1,0 +1,16 @@
+
+
+.container {
+    height: 200px;
+    // background-color: black;
+    padding-bottom: 10px;
+}
+.itemContainer{
+    padding: 20px;
+    border-bottom: 1px solid rgb(231, 231, 231);
+    display: flex;
+    justify-content: space-between;
+    &:hover{
+        background-color: aliceblue;
+    }
+}

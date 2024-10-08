@@ -9,15 +9,23 @@ import {
   faBarsStaggered,
   faEllipsisV,
   faSearch,
+  faUser,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
+import { userStore } from "../../../zustand/store";
+import { IconButton, Menu, MenuItem } from "@mui/material";
+import { authAPI } from "../../../service/auth";
+import Swal from "sweetalert2";
 const Header_components = () => {
   const nav = useNavigate();
   const [showHeader, setShowHeader] = useState(true); // Trạng thái để kiểm soát hiển thị header
   const [lastScrollY, setLastScrollY] = useState(0); // Trạng thái để lưu vị trí cuộn trước đó
   // console.log(typeof logo);
+
+  const user = userStore((state) => state.user);
+  const setUser = userStore((state) => state.setUser);
 
   const controlHeader = () => {
     // Lấy vị trí hiện tại của trục Y
@@ -59,6 +67,32 @@ const Header_components = () => {
   const handleLogin = () => {
     nav("/login");
   };
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleShowAnchorEl = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogOut = async () => {
+    const res = await authAPI.logOut();
+    setUser({});
+    localStorage.clear("accessToken");
+    localStorage.clear("refreshToken");
+    Swal.fire({
+      // position: "top-end",
+      icon: "success",
+      title: "Logout Success",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
+  const [errorAvatar, setErrorAvatar] = useState(false);
 
   // console.log(user);
   // console.log(localStorage.getItem("accessToken"));
@@ -120,13 +154,71 @@ const Header_components = () => {
                 <button className="btn">
                   <FontAwesomeIcon icon={faSearch} size="lg" />
                 </button>
-                <Button style={{ margin: "0 10px" }} onClick={handleLogin}>
-                  Login
-                </Button>
+                {Object.keys(user).length == 0 ? (
+                  <Button style={{ margin: "0 10px" }} onClick={handleLogin}>
+                    Login
+                  </Button>
+                ) : (
+                  <button
+                    className={clxs(styles.containerIconUser, "j_center")}
+                    onClick={() => {
+                      nav(`/userpanel`);
+                    }}
+                  >
+                    {!errorAvatar ? (
+                      <img
+                        className={clxs(styles.avatar)}
+                        src={user.avatar}
+                        onError={() => {
+                          setErrorAvatar(true);
+                          console.log("error");
+                        }}
+                        onLoad={() => {
+                          setErrorAvatar(false);
+                          console.log("success");
+                        }}
+                        alt="avatar"
+                      />
+                    ) : (
+                      <FontAwesomeIcon icon={faUser} size="lg" />
+                    )}
+                  </button>
+                )}
               </div>
             ) : (
               <div onClick={handleShowMenuRight} className="j_center">
-                <FontAwesomeIcon icon={faEllipsisV} />
+                <IconButton
+                  aria-label="more"
+                  aria-controls="long-menu"
+                  aria-haspopup="true"
+                  onClick={handleShowAnchorEl}
+                >
+                  {/* <MoreVertIcon /> */}
+                  <FontAwesomeIcon icon={faEllipsisV} />
+                </IconButton>
+                <Menu
+                  id="long-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleClose}>Search</MenuItem>
+                  {Object.keys(user).length != 0 ? (
+                    <>
+                      <MenuItem
+                        onClick={() => {
+                          nav(`/userpanel`);
+                        }}
+                      >
+                        Profile
+                      </MenuItem>
+                      <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+                    </>
+                  ) : (
+                    <MenuItem onClick={handleLogin}>Login</MenuItem>
+                  )}
+                </Menu>
               </div>
             )}
           </>

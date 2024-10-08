@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 import Header_components from "../components/home/header/Header_components";
-import { userStore } from "../zustand/userStore";
+import { userStore } from "../zustand/store";
 
 const HomePage = () => {
   // const navigate = useNavigate();

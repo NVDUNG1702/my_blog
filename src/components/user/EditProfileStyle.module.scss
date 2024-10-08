@@ -1,0 +1,29 @@
+.container{
+    width: 40vw;
+    height: 90vh;
+    // background-color: black;
+    margin: auto;
+    padding-top: 20px;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+.formContainer{
+    padding-top: 30px;
+}
+
+.containerImage{
+    width: 150px;
+    margin: auto;
+    position: relative;
+    
+}
+
+.iconDelete{
+    z-index: 99;
+    top: 0;
+    right: 0px;
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+}

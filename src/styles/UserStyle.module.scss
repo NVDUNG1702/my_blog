@@ -1,0 +1,183 @@
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+
+}
+
+
+.headerContainer {
+    height: 10vh;
+    // border-bottom-width: 10px;
+    // border-width: 0 0 1px 0;
+    // border-style: solid;
+    // border-color: #e4e4e4;
+    box-shadow: 0 3px 5px 1px #b0d6e1;
+
+    background-color: rgb(255, 255, 255);
+    // padding:0 20px;
+    position: relative;
+    z-index: 5;
+
+}
+
+.input {
+    width: 200px;
+    // background-color: #eaeaea;
+    border-radius: 16px;
+
+    div {
+        width: 200px;
+    }
+
+    input {
+        width: 200px !important;
+
+
+    }
+
+    fieldset {
+        border-color: rgb(233, 233, 233) !important;
+        border-radius: 16px;
+    }
+}
+
+.containerIconUser {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    border-width: 0px;
+    box-shadow: 1px 1px 4px 1px #ababab;
+    overflow: hidden;
+
+    &:active {
+        box-shadow: inset 1px 1px 4px 1px #ababab;
+    }
+}
+
+.sidebar {
+    width: 7vw;
+    height: 100%;
+    min-width: 90px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top: 0;
+    // border: 1px solid #a6ecff;
+    box-shadow: 0 3px 4px 1px #b0d6e1;
+    transition: all ease-in-out 0.6s;
+    // overflow: visible;
+}
+
+.itemMenu {
+    width: 4vw;
+    height: 4vw;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 16px;
+    transition: all 0.4s;
+    margin: 20px 0;
+    position: relative;
+
+    &::after {
+        content: attr(data-content);
+        /* Lấy nội dung từ data-content */
+        position: absolute;
+        // top: 50%;
+        /* Vị trí pseudo-element, có thể thay đổi tùy ý */
+        right: -170%;
+        /* Căn chỉnh sang phải */
+        // transform: translate(-50%, -50%);
+        /* Căn giữa pseudo-element */
+        background-color: black;
+        /* Màu nền cho pseudo-element */
+        color: white;
+        /* Màu chữ */
+        padding: 5px;
+        width: 90px;
+        height: auto;
+        text-align: center;
+        border-radius: 4px;
+        white-space: nowrap;
+
+        opacity: 0;
+        /* Ẩn pseudo-element */
+        visibility: hidden;
+        /* Đảm bảo pseudo-element bị ẩn */
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        /* Tạo hiệu ứng mờ dần */
+    }
+
+    &:hover {
+        background-color: white;
+        box-shadow: 0px 0px 7px 3px rgb(209, 209, 209);
+    }
+
+    &:hover::after {
+        opacity: 1;
+        /* Hiển thị pseudo-element khi hover */
+        visibility: visible;
+        /* Đảm bảo pseudo-element hiển thị */
+    }
+
+}
+
+.showSidebar {
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 3;
+}
+
+.hiddenSidebar {
+    opacity: 0;
+    transform: translate(-100%);
+}
+
+.itemMenuUser{
+    border-bottom: #ababab solid 1px ;
+
+    
+}
+
+.hoverChild{
+    div{
+        &:hover{
+            background-color: #d1d1d1;
+            cursor: pointer;
+        }
+    }
+}
+
+.hover{
+    &:hover{
+        background-color: #d1d1d1;
+        cursor: pointer;
+    }
+}
+
+.plush{
+    width: 50px;
+    height: 50px;
+    background-color: #00b7ff;
+}
+
+.avatar{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: black;
+    overflow: hidden;
+}
+
+// 
+
+.contentContainer{
+    height: 90vh;
+    // background-color: #ababab;
+    transition: all 0.5s ease-in-out;
+    overflow: scroll;
+
+}
+

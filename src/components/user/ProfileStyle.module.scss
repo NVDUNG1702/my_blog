@@ -1,0 +1,49 @@
+
+
+.container{
+    min-width: 350px;
+    width: 50%;
+    // min-height: 90vh;
+    height: 100%;
+    overflow: scroll;
+    padding-bottom: 20px;
+    scrollbar-width: none;
+    
+    // background-color: black;
+}
+
+.avatar{
+    width: 15vh;
+    height: 15vh;
+    border-radius: 50%;
+    background-color: black;
+    overflow: hidden;
+}
+
+.itemMenuProfile{
+    width: calc(100%/4);
+    border-bottom: 1px solid rgb(216, 216, 216);
+    transition: all ease-in-out 0.1s;
+
+    &:hover{
+        background-color: rgb(229, 229, 229);
+    }
+    
+    p{
+        padding: 5px 0;
+    }
+    
+}
+
+.itemMenuFocused{
+    border-bottom: 2px solid black;
+        font-weight: bold;
+}
+
+.flex_column{
+    flex-direction: column-reverse;
+    .avatar{
+        width: 100px;
+        height: 100px;
+    }
+}

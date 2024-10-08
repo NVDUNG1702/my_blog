@@ -3,12 +3,6 @@ import { BASE_URL } from "./untils";
 
 
 
-const refreshToken = async () => {
-    const refToken = localStorage.getItem('refreshToken');
-    const response = await axiosInstance.post('/api/users/refresh_token', { refreshToken: refToken },);
-
-    return response;
-}
 
 const axiosInstance = axios.create({
     baseURL: BASE_URL,
@@ -17,6 +11,14 @@ const axiosInstance = axios.create({
         "Content-Type": 'application/json'
     }
 });
+
+const refreshToken = async () => {
+    const refToken = localStorage.getItem('refreshToken');
+    const response = await axiosInstance.post('user/refresh_token', { refreshToken: refToken },);
+
+    return response;
+}
+
 
 axiosInstance.interceptors.request.use(
     async (config) => {
@@ -31,7 +33,7 @@ axiosInstance.interceptors.request.use(
         return config;
     },
     error => {
-        console.log("error request: ", error);
+        // console.log("error request: ", error);
 
         Promise.reject(error);
     }
@@ -43,7 +45,7 @@ axiosInstance.interceptors.response.use(
         const originalRequest = err.config;
         const { name } = err.response?.data || {};
         const { status } = err.response || {};
-        console.log('status: ', status, 'name: ', err);
+        // console.log('status: ', status, 'name: ', err);
 
 
         if (status == 401 && name == 'TokenExpiredError') {
@@ -64,7 +66,7 @@ axiosInstance.interceptors.response.use(
             }
         }
 
-        console.log("Error response: ", err);
+        // console.log("Error response: ", err);
         return Promise.reject(err);
     }
 );

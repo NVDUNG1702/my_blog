@@ -11,13 +11,14 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import Swal from "sweetalert2";
-import { userStore } from "../zustand/userStore";
+import { userStore } from "../zustand/store";
 import { useNavigate } from "react-router-dom";
 import OtpInput from "react-otp-input";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "react-bootstrap";
 import { authAPI } from "../service/auth";
+import { RotatingLines } from "react-loader-spinner";
 
 const LoginPage = () => {
   const nav = useNavigate();
@@ -31,6 +32,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [otp, setOtp] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const resertData = () => {
     setName("");
@@ -45,6 +47,8 @@ const LoginPage = () => {
   useEffect(() => {
     if (Object.keys(user).length !== 0) {
       nav("/");
+    } else {
+      setLoading(false);
     }
   }, [user]);
 
@@ -114,7 +118,18 @@ const LoginPage = () => {
 
         localStorage.setItem("refreshToken", refreshToken.token);
         localStorage.setItem("accessToken", accessToken.token);
-        setUser(user);
+        if (user.avatar === null) {
+          const newUser = {
+            ...user,
+            avatar: " ",
+          };
+          console.log(newUser);
+
+          setUser(newUser);
+        } else {
+          setUser(user);
+        }
+
         Swal.fire({
           // position: "top-end",
           icon: "success",
@@ -162,7 +177,7 @@ const LoginPage = () => {
 
   const senOTP = async () => {
     if (validation()) {
-      const res = await authAPI.sendOTP(email);
+      const res = await authAPI.sendOTP(email, name);
       setOtp("");
       if (res == 200) {
         setShowFromOTP(true);
@@ -175,273 +190,290 @@ const LoginPage = () => {
 
   return (
     <div className="j_center fullBox">
-      <div className={styles.container}>
-        {/* Sign Up Container */}
-        {responsive ? (
-          <>
-            <div
-              className={`${styles.signUpContainer} ${
-                signIn ? styles.signUpContainerActive : ""
-              } `}
-            >
-              <form className={styles.form}>
-                <h1 className={styles.title}>Create Account</h1>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  className={styles.input}
-                  value={name}
-                  onChange={handleNameChange}
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className={styles.input}
-                  value={email}
-                  onChange={handleEmailChange}
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className={styles.input}
-                  value={pass}
-                  onChange={handlePassChange}
-                />
-                <button
-                  type="button"
-                  className={styles.button}
-                  onClick={senOTP}
+      {!loading ? (
+        <>
+          <div className={styles.container}>
+            {/* Sign Up Container */}
+            {responsive ? (
+              <>
+                <div
+                  className={`${styles.signUpContainer} ${signIn ? styles.signUpContainerActive : ""
+                    } `}
                 >
-                  Sign Up
-                </button>
-              </form>
-            </div>
-
-            {/*  */}
-            <div
-              className={`${styles.signInContainer} ${
-                signIn ? "" : styles.signInContainerActive
-              }`}
-            >
-              <form className={styles.form}>
-                <h1 className={styles.title}>Sign in</h1>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className={styles.input}
-                  value={email}
-                  onChange={handleEmailChange}
-                />
-                {/* <div className={styles.input}> */}
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className={clsx(styles.input)}
-                  value={pass}
-                  onChange={handlePassChange}
-                />
-                {/* </div> */}
-                <a href="#" className={styles.anchor}>
-                  Forgot your password?
-                </a>
-                <button
-                  type="button"
-                  className={clsx(styles.button, "btn bg-primary")}
-                  onClick={handleSignIn}
-                >
-                  Sign In
-                </button>
-              </form>
-            </div>
-          </>
-        ) : (
-          <div>
-            <div
-              className={`${styles.signUpContainer} ${
-                signIn ? styles.signUpContainerActive : ""
-              } w-100 ${!signIn ? styles.translateX0 : ""}`}
-            >
-              <form className={styles.form}>
-                <h1 className={styles.title}>Create Account</h1>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  className={styles.input}
-                  value={name}
-                  onChange={handleNameChange}
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className={styles.input}
-                  value={email}
-                  onChange={handleEmailChange}
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className={styles.input}
-                  value={pass}
-                  onChange={handlePassChange}
-                />
-                <span className="mb-3">
-                  You have an account,{" "}
-                  <span
-                    onClick={() => {
-                      setSignIn(!signIn);
-                    }}
-                    className="text-decoration-underline"
-                  >
-                    login now
-                  </span>
-                </span>
-                <button
-                  className={styles.button}
-                  type="button"
-                  onClick={senOTP}
-                >
-                  Sign Up
-                </button>
-              </form>
-            </div>
-            <div
-              className={`${styles.signInContainer} ${
-                signIn ? "" : styles.signInContainerActive
-              } w-100 ${!signIn ? styles.translateX100 : ""}`}
-            >
-              <form className={styles.form}>
-                <h1 className={styles.title}>Sign in</h1>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className={styles.input}
-                  value={email}
-                  onChange={handleEmailChange}
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className={styles.input}
-                  value={pass}
-                  onChange={handlePassChange}
-                />
-                <div className="j_around w-100 mb-5">
-                  <span className="">
-                    you don't have acount,{" "}
-                    <span
-                      onClick={() => {
-                        setSignIn(!signIn);
-                      }}
-                      className="text-decoration-underline"
+                  <form className={styles.form}>
+                    <h1 className={styles.title}>Create Account</h1>
+                    <input
+                      type="text"
+                      placeholder="Name"
+                      className={styles.input}
+                      value={name}
+                      onChange={handleNameChange}
+                    />
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      className={styles.input}
+                      value={email}
+                      onChange={handleEmailChange}
+                    />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      className={styles.input}
+                      value={pass}
+                      onChange={handlePassChange}
+                    />
+                    <button
+                      type="button"
+                      className={styles.button}
+                      onClick={senOTP}
                     >
-                      sign up now
-                    </span>
-                  </span>
-                  <a href="#" className={clsx(styles.anchor, "")}>
-                    Forgot your password?
-                  </a>
+                      Sign Up
+                    </button>
+                  </form>
                 </div>
-                <button
-                  type="button"
-                  className={clsx(styles.button, "btn bg-primary mt-3")}
-                  onClick={handleSignIn}
-                >
-                  Sign In
-                </button>
-              </form>
-            </div>
-          </div>
-        )}
 
-        {/* Overlay Container */}
-        {responsive && (
-          <div
-            className={`${styles.overlayContainer} ${
-              signIn ? "" : styles.overlayContainerActive
-            }`}
-          >
-            <div
-              className={`${styles.overlay} ${
-                signIn ? "" : styles.overlayActive
-              }`}
-            >
-              {/* Left Overlay Panel */}
-              <div
-                className={`${styles.leftOverlayPanel} ${
-                  signIn ? "" : styles.leftOverlayPanelActive
-                }`}
-              >
-                <h1 className={styles.title}>Welcome Back!</h1>
-                <p className={styles.paragraph}>
-                  To keep connected with us please login with your personal info
-                </p>
-                <button
-                  className={clsx(styles.ghostButton, "btn btn-outline-light")}
-                  onClick={() => setSignIn(true)}
+                {/*  */}
+                <div
+                  className={`${styles.signInContainer} ${signIn ? "" : styles.signInContainerActive
+                    }`}
                 >
-                  Sign In
-                </button>
-              </div>
-
-              {/* Right Overlay Panel */}
-              <div
-                className={`${styles.rightOverlayPanel} ${
-                  signIn ? "" : styles.rightOverlayPanelActive
-                }`}
-              >
-                <h1 className={styles.title}>Hello, Friend!</h1>
-                <p className={styles.paragraph}>
-                  Enter your personal details and start your journey with us
-                </p>
-                <button
-                  className={clsx(styles.ghostButton, "btn btn-outline-light")}
-                  onClick={() => setSignIn(false)}
-                >
-                  Sign Up
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-      <ToastContainer style={{ width: "200px", height: "100px" }} />
-      {showFormOTP && (
-        <div className={clsx(styles.optContainer, "j_center")}>
-          <OtpInput
-            value={otp}
-            onChange={setOtp}
-            numInputs={6}
-            renderSeparator={<span>-</span>}
-            renderInput={(props) => (
-              <input {...props} className={clsx(styles.otpInput)} />
-            )}
-          />
-          <div className="mt-4 fw-semibold">
-            {timeOut != 0 ? (
-              <p>Thời gian hết hạn otp: {formatTime(timeOut)}</p>
+                  <form className={styles.form}>
+                    <h1 className={styles.title}>Sign in</h1>
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      className={styles.input}
+                      value={email}
+                      onChange={handleEmailChange}
+                    />
+                    {/* <div className={styles.input}> */}
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      className={clsx(styles.input)}
+                      value={pass}
+                      onChange={handlePassChange}
+                    />
+                    {/* </div> */}
+                    <a href="#" className={styles.anchor}>
+                      Forgot your password?
+                    </a>
+                    <button
+                      type="button"
+                      className={clsx(styles.button, "btn bg-primary")}
+                      onClick={handleSignIn}
+                    >
+                      Sign In
+                    </button>
+                  </form>
+                </div>
+              </>
             ) : (
-              <p
-                className="text-decoration-underline no_click"
-                onClick={senOTP}
+              <div>
+                <div
+                  className={`${styles.signUpContainer} ${signIn ? styles.signUpContainerActive : ""
+                    } w-100 ${!signIn ? styles.translateX0 : ""}`}
+                >
+                  <form className={styles.form}>
+                    <h1 className={styles.title}>Create Account</h1>
+                    <input
+                      type="text"
+                      placeholder="Name"
+                      className={styles.input}
+                      value={name}
+                      onChange={handleNameChange}
+                    />
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      className={styles.input}
+                      value={email}
+                      onChange={handleEmailChange}
+                    />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      className={styles.input}
+                      value={pass}
+                      onChange={handlePassChange}
+                    />
+                    <span className="mb-3">
+                      You have an account,{" "}
+                      <span
+                        onClick={() => {
+                          setSignIn(!signIn);
+                        }}
+                        className="text-decoration-underline"
+                      >
+                        login now
+                      </span>
+                    </span>
+                    <button
+                      className={styles.button}
+                      type="button"
+                      onClick={senOTP}
+                    >
+                      Sign Up
+                    </button>
+                  </form>
+                </div>
+                <div
+                  className={`${styles.signInContainer} ${signIn ? "" : styles.signInContainerActive
+                    } w-100 ${!signIn ? styles.translateX100 : ""}`}
+                >
+                  <form className={styles.form}>
+                    <h1 className={styles.title}>Sign in</h1>
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      className={styles.input}
+                      value={email}
+                      onChange={handleEmailChange}
+                    />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      className={styles.input}
+                      value={pass}
+                      onChange={handlePassChange}
+                    />
+                    <div className="j_around w-100 mb-5">
+                      <span className="">
+                        you don't have acount,{" "}
+                        <span
+                          onClick={() => {
+                            setSignIn(!signIn);
+                          }}
+                          className="text-decoration-underline"
+                        >
+                          sign up now
+                        </span>
+                      </span>
+                      <a href="#" className={clsx(styles.anchor, "")}>
+                        Forgot your password?
+                      </a>
+                    </div>
+                    <button
+                      type="button"
+                      className={clsx(styles.button, "btn bg-primary mt-3")}
+                      onClick={handleSignIn}
+                    >
+                      Sign In
+                    </button>
+                  </form>
+                </div>
+              </div>
+            )}
+
+            {/* Overlay Container */}
+            {responsive && (
+              <div
+                className={`${styles.overlayContainer} ${signIn ? "" : styles.overlayContainerActive
+                  }`}
               >
-                Gửi lại otp
-              </p>
+                <div
+                  className={`${styles.overlay} ${signIn ? "" : styles.overlayActive
+                    }`}
+                >
+                  {/* Left Overlay Panel */}
+                  <div
+                    className={`${styles.leftOverlayPanel} ${signIn ? "" : styles.leftOverlayPanelActive
+                      }`}
+                  >
+                    <h1 className={styles.title}>Welcome Back!</h1>
+                    <p className={styles.paragraph}>
+                      To keep connected with us please login with your personal
+                      info
+                    </p>
+                    <button
+                      className={clsx(
+                        styles.ghostButton,
+                        "btn btn-outline-light"
+                      )}
+                      onClick={() => setSignIn(true)}
+                    >
+                      Sign In
+                    </button>
+                  </div>
+
+                  {/* Right Overlay Panel */}
+                  <div
+                    className={`${styles.rightOverlayPanel} ${signIn ? "" : styles.rightOverlayPanelActive
+                      }`}
+                  >
+                    <h1 className={styles.title}>Hello, Friend!</h1>
+                    <p className={styles.paragraph}>
+                      Enter your personal details and start your journey with us
+                    </p>
+                    <button
+                      className={clsx(
+                        styles.ghostButton,
+                        "btn btn-outline-light"
+                      )}
+                      onClick={() => setSignIn(false)}
+                    >
+                      Sign Up
+                    </button>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
-          <Button className="mt-5" onClick={handleSignUp}>
-            Save
-          </Button>
-          <button
-            className=" btn no_click "
-            style={{ position: "absolute", top: "20px", left: "20px" }}
-            onClick={() => {
-              setShowFromOTP(false);
-            }}
-            type="button"
-          >
-            <FontAwesomeIcon icon={faX} size="lg" />
-          </button>
-        </div>
+          <ToastContainer style={{ width: "200px", height: "100px" }} />
+          {showFormOTP && (
+            <div className={clsx(styles.optContainer, "j_center")}>
+              <OtpInput
+                value={otp}
+                onChange={setOtp}
+                numInputs={6}
+                renderSeparator={<span>-</span>}
+                renderInput={(props) => (
+                  <input {...props} className={clsx(styles.otpInput)} />
+                )}
+              />
+              <div className="mt-4 fw-semibold">
+                {timeOut != 0 ? (
+                  <p>Thời gian hết hạn otp: {formatTime(timeOut)}</p>
+                ) : (
+                  <p
+                    className="text-decoration-underline no_click"
+                    onClick={senOTP}
+                  >
+                    Gửi lại otp
+                  </p>
+                )}
+              </div>
+              <Button className="mt-5" onClick={handleSignUp}>
+                Save
+              </Button>
+              <button
+                className=" btn no_click "
+                style={{ position: "absolute", top: "20px", left: "20px" }}
+                onClick={() => {
+                  setShowFromOTP(false);
+                }}
+                type="button"
+              >
+                <FontAwesomeIcon icon={faX} size="lg" />
+              </button>
+            </div>
+          )}
+        </>
+      ) : (
+        <>
+          <RotatingLines
+            visible={true}
+            height="96"
+            width="96"
+            color="grey"
+            strokeWidth="5"
+            animationDuration="0.75"
+            ariaLabel="rotating-lines-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </>
       )}
     </div>
   );

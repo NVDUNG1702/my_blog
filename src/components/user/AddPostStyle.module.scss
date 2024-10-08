@@ -1,0 +1,42 @@
+
+.inputTitle{
+    border: none;
+    font-size: 32px;
+    width: 90%;
+    &:active{
+        border: none;
+    }
+
+    &:focus{
+        border: none;
+        outline: none;
+    }
+
+    &::placeholder{
+        font-size: 32px;
+    }
+}
+
+.inputContent{
+    border: none;
+    font-size: 24px;
+    width: 90%;
+    &:active{
+        border: none;
+    }
+
+    &:focus{
+        border: none;
+        outline: none;
+    }
+
+    &::placeholder{
+        font-size: 24px;
+    }
+}
+
+.container{
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
+}

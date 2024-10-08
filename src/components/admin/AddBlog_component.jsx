@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export default function AddBlog_component() {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [sections, setSections] = useState([
+  const [sections, setSections] = useState([ 
     { heading: "", content: "", images: [] },
   ]);
   const [progress, setProgress] = useState(0);
